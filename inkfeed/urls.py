@@ -12,6 +12,5 @@ router.register(r'users', UsersViewSet, base_name='user')
 urlpatterns = [
     path('', include(router.urls)),
     path('', include('accounts.urls', namespace='accounts')),
-    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
 ]
