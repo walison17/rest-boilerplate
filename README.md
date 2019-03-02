@@ -1,4 +1,4 @@
-# Rest Boilerplate
+# REST Boilerplate
 This is my REST Framework template for all projects.
 It's been standardized from the Makerlog codebase.
 It also includes code to allow Paddle subscriptions.
