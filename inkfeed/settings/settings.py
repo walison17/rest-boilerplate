@@ -16,12 +16,12 @@ import environ
 env = environ.Env(
     ALLOWED_HOSTS=(list, ['127.0.0.1', 'mac.local', 'localhost'])
 )
-# reading .env file
-environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# reading .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
