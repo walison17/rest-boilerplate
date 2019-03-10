@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dokku": {
+      "postdeploy": "chmod +x bin/postdeploy.sh; ./bin/postdeploy.sh"
+    }
+  }
+}
