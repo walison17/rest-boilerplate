@@ -1,6 +1,6 @@
 import requests
 from django.conf import settings
-from rest_framework import serializers
+from rest_framework import serializers, validators
 import re
 from .models import User
 import django.contrib.auth.password_validation as validators
@@ -60,7 +60,16 @@ class RegisterSerializer(serializers.Serializer):
     Serializer for beta register endpoint.
     """
     username = serializers.CharField(required=True)
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField(
+        required=True,
+        validators=[
+            validators.UniqueValidator(
+                queryset=User.objects.all(),
+                lookup='iexact',
+                message='This email is already taken.'
+            )
+        ]
+    )
     password = serializers.CharField(
         required=True,
         style={'input_type': 'password'}
@@ -99,13 +108,6 @@ class RegisterSerializer(serializers.Serializer):
                 raise serializers.ValidationError("Incorrect ReCaptcha (network error server-side).")
 
         return data
-
-    def validate_email(self, email):
-        existing = User.objects.filter(email=email).first()
-        if existing:
-            raise serializers.ValidationError("This email is already taken.")
-
-        return email
 
     def validate_username(self, username):
         if not re.match(r'^\w+$', username):
